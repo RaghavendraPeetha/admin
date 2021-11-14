@@ -1,22 +1,34 @@
 import {useState,useEffect} from "react"
 import './App.css';
+import Loader from 'react-loader-spinner'
 import Member from "./Components/Member";
 import Pagination from "./Components/Pagination"
 
 function App() {
 
+  const apiStatusConstants = {
+    initial: 'INITIAL',
+    success: 'SUCCESS',
+    failure: 'FAILURE',
+    inProgress: 'IN_PROGRESS',
+  }
+
   const [members,setMembers]=useState([]);
   const [currentPage,setCurrentPage]=useState([]);
   const [searchInput,setSearchInput]=useState("");
+  const [loading,setLoading]=useState(apiStatusConstants.initial);
  
 
   
   
   
   async function fetchData (){
+    setLoading(apiStatusConstants.inProgress);
     const url="https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json";
     const response=await fetch(url);
     const data=await response.json();
+
+    if (response.ok){
     setMembers(data.map(each=>{
       return {
       "isChecked":false,
@@ -28,6 +40,10 @@ function App() {
       
     }));
     setCurrentPage(data.slice(0,10));
+    setLoading(apiStatusConstants.success);
+  }else{
+    setLoading(apiStatusConstants.failure);
+  }
     };
  
 
@@ -144,62 +160,109 @@ const pageHandler=(pageNumber)=>{
 
   console.log(members)
 
-  return (
+
+  const renderMembers=()=>(
     <div className="App">
 
-      <input 
-      type="search"
-      value={searchInput}
-      onChange={onChangeSearchInput}
-      placeholder="Search by name,emial or role"
-      onKeyDown={onEnter}
-      />
 
 
+
+    <input 
+    type="search"
+    value={searchInput}
+    onChange={onChangeSearchInput}
+    placeholder="Search by name,emial or role"
+    onKeyDown={onEnter}
+    />
+
+
+   
+
+
+  
+  <div className="details__cnr">
+    <div className="headings__cnr">
+    <input 
+    type="checkbox"
+   onChange={onToggleAll}
+
+    />
+    <div>
+    <h1 className="name">Name</h1>
+    </div>
+    <div>
+    <h1>Email</h1>
+    </div>
+    <div>
+    <h1 className="role">Role</h1>
+    </div>
+    <div>
+    <h1>Actions</h1>
+    </div>
+    </div>
+     <ul>
+       {currentPage.map(eachMember=>(
+         <Member key={eachMember.id}
+         eachMemberDetails={eachMember}
+         deleteDetails={deleteDetails}
+        
+        
+         />
+       ))}
+     </ul>
+     </div>
+     <div className="page__selector">
+
+       <button className="delete__btn" onClick={onDeleteSelected}>Delete Selected</button>
+     <Pagination members={members} pageHandler={pageHandler}/>
      
-
+     </div>
 
     
-    <div className="details__cnr">
-      <div className="headings__cnr">
-      <input 
-      type="checkbox"
-     onChange={onToggleAll}
+  </div>
+  );
 
-      />
-      <div>
-      <h1 className="name">Name</h1>
-      </div>
-      <div>
-      <h1>Email</h1>
-      </div>
-      <div>
-      <h1 className="role">Role</h1>
-      </div>
-      <div>
-      <h1>Actions</h1>
-      </div>
-      </div>
-       <ul>
-         {currentPage.map(eachMember=>(
-           <Member key={eachMember.id}
-           eachMemberDetails={eachMember}
-           deleteDetails={deleteDetails}
-          
-          
-           />
-         ))}
-       </ul>
-       </div>
-       <div className="page__selector">
+const renderFailureView=()=>(
+  <div>
+    <button onClick={fetchData} className="delete__btn">Retry</button>
+  </div>
+);
 
-         <button className="delete__btn" onClick={onDeleteSelected}>Delete Selected</button>
-       <Pagination members={members} pageHandler={pageHandler}/>
-       
-       </div>
 
-      
+ const renderLoadingView = () => (
+    <div >
+      <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
     </div>
+  )
+
+
+ const renderdetails = () => {
+   
+
+    switch (loading) {
+      case apiStatusConstants.success:
+        return renderMembers()
+      case apiStatusConstants.failure:
+        return renderFailureView()
+      case apiStatusConstants.inProgress:
+        return renderLoadingView()
+      default:
+        return null
+    }
+  }
+
+    
+
+
+  return (
+
+
+
+    <div>
+    {renderdetails()}
+ </div>
+
+   
   );
 }
 

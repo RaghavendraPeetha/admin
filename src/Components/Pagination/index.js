@@ -52,7 +52,8 @@ function Pagination(props) {
     return (
         <div className="pagination__cnr">
            
-            <button  className="page__btn" onClick={()=>{pageHandler(1)}}><GrChapterPrevious/></button>
+            <button  className="page__btn" onClick={()=>{pageHandler(1)
+            setPage(1)}}><GrChapterPrevious/></button>
             <button  className="page__btn"  onClick={previousPage}><GrFormPrevious/></button>
             <ul>
                 {pageNumbers.map(eachPage=>(
@@ -62,7 +63,8 @@ function Pagination(props) {
                 ))}
             </ul>
             <button  className="page__btn" onClick={nextPage}><GrFormNext/></button>
-            <button  className="page__btn" onClick={()=>{pageHandler(pageNumbers.length)}}><GrChapterNext/></button>
+            <button  className="page__btn" onClick={()=>{pageHandler(pageNumbers.length)
+            setPage(pageNumbers.length)}}><GrChapterNext/></button>
         </div>
     )
 }
