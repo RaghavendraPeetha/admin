@@ -1,0 +1,24 @@
+.pagination__cnr{
+    display: flex;
+    align-items: center;
+}
+.pagination__cnr>ul{
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    margin-right: 35px;
+}
+.bg__btn{
+    background-color: blue !important;
+    color: #ffffff !important;
+}
+.page__btn{
+    outline: none;
+    border: none;
+    background-color: lightskyblue;
+   
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    margin-right: 10px;
+}

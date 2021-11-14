@@ -1,0 +1,30 @@
+.eachMember__details{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.eachMember__details>h1{
+    width: 20%;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+}
+.eachMember__details>p{
+    width: 20%;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+}
+.eachMember__details>div>button{
+    margin-left: 5px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    background-color: #ffffff;
+    font-size: 20px;
+}
+.bg {
+    background-color: lightgrey !important;
+}

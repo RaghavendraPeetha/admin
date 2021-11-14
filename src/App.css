@@ -1,38 +1,67 @@
 .App {
-  text-align: center;
+  display: flex;
+  margin: 30px;
+  flex-direction: column;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.details__cnr>div>div>h1{
+  font-size: 15px;
+  
+ text-align: end;
+ 
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.details__cnr>div>div{
+  width: 20%;
+  
 }
+.name{
+ padding-right: 60px;
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+}
+.role{
+ text-align: center;
+ width: 100% !important;
+ margin-left: 40px;
+ 
+}
+.App>input{
+  outline: none;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 4px 10px 4px 10px;
+
+}
+.details__cnr{
   display: flex;
   flex-direction: column;
+  
+}
+.headings__cnr{
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+  margin-top: 30px;
+ 
 }
-
-.App-link {
-  color: #61dafb;
+.details__cnr>ul{
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+ 
+  padding: 0px;
+  
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.page__selector{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.delete__btn{
+  border: none;
+  outline: none;
+  padding: 5px 18px 5px 18px;
+  border-radius: 5px;
+  font-size: large;
+  background-color: limegreen;
+  color: #ffffff;
+  cursor: pointer;
 }
